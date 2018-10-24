@@ -11,14 +11,12 @@
         </div>
         <p>{{ errorMessage }}</p>
         <div v-for="(task, index) in allTasks">
-            <transition name="fade">
-                <div id="my-list" :class="{ 'seen': task.read }">
-                    <input type="checkbox" id="checkbox" v-model="task.read">
-                    <span>{{ task.title }}</span>
-                    <img src="./assets/delete.png" width="20" id="delete"
-                    @click="deleteItem(index)">
-                </div>
-            </transition>
+            <div id="my-list" :class="{ 'seen': task.read }">
+                <input type="checkbox" id="checkbox" v-model="task.read">
+                <span>{{ task.title }}</span>
+                <img src="./assets/delete.png" width="20" id="delete"
+                @click="deleteItem(index)">
+            </div>
         </div>
     </div>
 </template>
