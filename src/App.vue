@@ -13,7 +13,12 @@
         <div v-for="(task, index) in allTasks">
             <div id="my-list" :class="{ 'seen': task.read }">
                 <input type="checkbox" id="checkbox" v-model="task.read">
-                <span>{{ task.title }}</span>
+                <label v-if="!edit"
+                @dblclick.stop="edit=true"> {{ task.title }}</label> 
+                <input id="rename" type="text"
+                v-if="edit" 
+                v-model="task.title"
+                @keyup.enter="editTask(index)">
                 <img src="./assets/delete.png" width="20" id="delete"
                 @click="deleteItem(index)">
             </div>
@@ -28,6 +33,7 @@ export default {
     data: function () {
         return {
             allTasks: [],
+            edit: false,
             newTaskTitle: "",
             errorMessage: ""
         }
@@ -40,7 +46,7 @@ export default {
     watch: {
         allTasks(NewAllTasks) {
             localStorage.allTasks = JSON.stringify(NewAllTasks);
-        }
+        },
     },
     methods: {
         addNewTask: function () {
@@ -59,6 +65,11 @@ export default {
         deleteItem: function (index) {
             this.allTasks.pop(index);
         },
+        editTask: function (index) {
+            this.allTasks.push(null);
+            this.allTasks.pop();
+            this.edit = false;
+        }
     }
 };
 </script>
@@ -121,6 +132,10 @@ button {
 #checkbox {
     float: left;
     margin-left: 3em;
+}
+
+#rename {
+    font-size: 15px;
 }
 
 .seen {
