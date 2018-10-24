@@ -116,6 +116,7 @@ button {
 
 #delete {
     float: right;
+    cursor: pointer;
     margin-right: 1em;
 }
 
